@@ -3,8 +3,11 @@ from datetime import datetime, timezone
 import glob
 import pathlib
 import yaml
+import os
 
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP, Image
+from PIL import Image as PILImage
+import io
 
 ROOT = pathlib.Path(__file__).parent
 NOVEL_DIR = ROOT / "stories"  # src/stories/<STORY_ID>/<scene_id>.yaml
@@ -17,6 +20,7 @@ mcp = FastMCP("NovelGame-MCP-Server")
 # ---------------------------------------------------------------------------
 META: dict[str, dict] = {}
 SCENES: dict[str, dict[str, dict]] = defaultdict(dict)
+IMAGES: dict[str, dict[str, str]] = {}
 STATE: dict[str, dict] = {}
 
 # 全てのストーリーディレクトリを確認
@@ -26,10 +30,11 @@ for story_dir in story_dirs:
     story_id = story_dir.name
     
     # メタデータの読み込み
-    meta_file = story_dir / "meta.yaml"
-    if meta_file.exists():
+    meta_path = os.path.join(str(story_dir), "meta.yaml")
+    if os.path.exists(meta_path):
         try:
-            META[story_id] = yaml.safe_load(meta_file.read_text())
+            with open(meta_path, "r", encoding="utf-8") as f:
+                META[story_id] = yaml.safe_load(f)
         except Exception as e:
             print(f"Error loading meta file for {story_id}: {e}")
             META[story_id] = {"title": story_id}  # 最低限のメタデータ
@@ -41,11 +46,23 @@ for story_dir in story_dirs:
     for scene_file in story_dir.glob("*.yaml"):
         if scene_file.name == "meta.yaml":
             continue
-        
         try:
-            doc = yaml.safe_load(scene_file.read_text())
+            with open(scene_file, "r", encoding="utf-8") as f:
+                doc = yaml.safe_load(f)
             scene_id = doc.pop("id", scene_file.stem)  # ファイル名をフォールバックとして使用
-            SCENES[story_id][scene_id] = {"type": "preset", **doc}
+            SCENES.setdefault(story_id, {})[scene_id] = {"type": "preset", **doc}
+
+            # 画像ファイルの読み込み（PNG優先、なければJPG）
+            images_dir = os.path.join(str(story_dir), "images")
+            png_file = os.path.join(images_dir, f"{scene_id}.png")
+            jpg_file = os.path.join(images_dir, f"{scene_id}.jpg")
+            image_path = None
+            if os.path.exists(png_file):
+                image_path = png_file
+            elif os.path.exists(jpg_file):
+                image_path = jpg_file
+            if image_path:
+                IMAGES.setdefault(story_id, {})[scene_id] = os.path.abspath(image_path)
         except Exception as e:
             print(f"Error loading scene file {scene_file}: {e}")
 
@@ -75,10 +92,10 @@ LOG: dict[str, list[dict]] = defaultdict(list)  # story_id → event list
 now_ts = lambda: datetime.now(timezone.utc).isoformat()
 
 # ---------------------------------------------------------------------------
-# 3) MCP Resources (docstring 付き)
+# 3) MCP Resources
 # ---------------------------------------------------------------------------
 
-@mcp.resource("fiction://stories")
+@mcp.resource("novelgame://stories")
 def stories_index() -> list[dict]:
     """Return list of available stories with minimal metadata (story_id, title…)."""
     result = []
@@ -93,15 +110,19 @@ def stories_index() -> list[dict]:
     return result
 
 
-@mcp.resource("fiction://story/{story_id}/meta")
+@mcp.resource("novelgame://story/{story_id}/meta")
 def story_meta(story_id: str) -> dict:
     """Metadata for the specified story (title, author, language)."""
     if story_id not in META:
         return {}
     return META[story_id]
 
+@mcp.resource("novelgame://story/{story_id}/images")
+def story_images(story_id: str) -> list[str]:
+    """Return list of available images for the specified story."""
+    return list(IMAGES.get(story_id, {}).keys())
 
-@mcp.resource("fiction://story/{story_id}/state")
+@mcp.resource("novelgame://story/{story_id}/state")
 def story_state(story_id: str) -> dict:
     """Current global state of the story (scene_id, flags, summary)."""
     if story_id not in STATE:
@@ -109,7 +130,7 @@ def story_state(story_id: str) -> dict:
     return STATE[story_id]
 
 
-@mcp.resource("fiction://story/{story_id}/scenes/{scene_id}")
+@mcp.resource("novelgame://story/{story_id}/scenes/{scene_id}")
 def story_scene(story_id: str, scene_id: str) -> dict:
     """Scene document (body Markdown, choices) for given story & scene."""
     if story_id not in SCENES or scene_id not in SCENES[story_id]:
@@ -117,13 +138,13 @@ def story_scene(story_id: str, scene_id: str) -> dict:
     return SCENES[story_id][scene_id]
 
 
-@mcp.resource("fiction://player/{player_id}/path")
+@mcp.resource("novelgame://player/{player_id}/path")
 def player_path(player_id: str) -> list[str]:
     """Visited scene_id list for the player in current playthrough."""
     return PLAYER_PATH[player_id]
 
 
-@mcp.resource("fiction://log/{story_id}")
+@mcp.resource("novelgame://log/{story_id}")
 def story_log(story_id: str) -> list[dict]:
     """Chronological event log (start, choices…) for the specified story."""
     return LOG[story_id]
@@ -191,21 +212,58 @@ def choose(
     return "ok"
 
 
+@mcp.tool()
+def load_scene_image(player_id: str, scene_id: str, max_width: int = 1024, max_height: int = 1024) -> Image:
+    """Return the image for the player's current story and scene. Resize and compress until data size <= 1MB."""
+    story_id = CURRENT_STORY.get(player_id)
+    if story_id is None:
+        raise ValueError("Story not selected. Call select_story first.")
+    image_path = IMAGES.get(story_id, {}).get(scene_id)
+    if not image_path:
+        raise FileNotFoundError(f"No image found for story={story_id}, scene={scene_id}")
+
+    with PILImage.open(image_path) as img:
+        ext = (img.format or "PNG").upper()
+        width, height = img.size
+        cur_width, cur_height = min(width, max_width), min(height, max_height)
+        min_size = 100
+        quality = 85 if ext in ("JPEG", "JPG") else None
+
+        while True:
+            img_copy = img.copy()
+            img_copy.thumbnail((cur_width, cur_height), PILImage.LANCZOS)
+            buf = io.BytesIO()
+            if ext in ("JPEG", "JPG"):
+                img_copy.save(buf, format="JPEG", quality=quality)
+            else:
+                img_copy.save(buf, format="PNG", optimize=True, compress_level=9)
+            size = buf.tell()
+            if size <= 1048576 or (cur_width <= min_size or cur_height <= min_size):
+                break
+            # さらに縮小
+            cur_width = int(cur_width * 0.8)
+            cur_height = int(cur_height * 0.8)
+        buf.seek(0)
+        if size > 1048576:
+            raise ValueError("Image is too large even after repeated resizing/compression.")
+        return Image(data=buf.read())
+
+
 # ---------------------------------------------------------------------------
 # 5) Prompt
 # ---------------------------------------------------------------------------
-
 
 @mcp.prompt("narrator_prompt")
 def narrator_prompt() -> str:
     """Single system prompt used by the narrator LLM."""
     return (
         "Run the novel game."
-        "First, select a story in stories_index."
-        "Then, start a scene in story_state."
+        "First, select a story in stories_index and call select_story."
+        "Then, select a scene in story_state and call choose."
         "<Constraints>"
         "Speak Japanese."
         "Write vivid Japanese prose (max 1000 chars). "
+        "Use image of current scene in load_scene_image."
         "Keep continuity with the existing story world and flags. "
         "Do not reveal hidden game mechanics or internal data."
         "</Constraints>"

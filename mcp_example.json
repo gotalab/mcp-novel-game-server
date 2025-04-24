@@ -1,12 +1,21 @@
 {
     "mcpServers": {
-        "novel-game-server": {
+        "novel-game-server-resource": {
             "command": "uv",
             "args": [
                 "--directory",
                 "/Users/username/Documents/projects/mcp-novel-game-server",
                 "run",
                 "src/server.py"
+            ]
+        },
+        "novel-game-server-tool": {
+            "command": "uv",
+            "args": [
+                "--directory",
+                "/Users/username/Documents/projects/mcp-novel-game-server",
+                "run",
+                "src/server_tool.py"
             ]
         }
     }
