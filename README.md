@@ -3,7 +3,13 @@
 ## English
 
 ### Overview
-This repository is a novel game server that supports multi-branch scenario stories (visual novels) in both English and Japanese. You can run, edit, and add new scenarios easily. The server supports scenario files written in YAML and can be extended with your own stories.
+This repository is a novel game server that supports multi-branch scenario stories (visual novels) in both English and Japanese. 
+
+**This repository is designed as a resource to help you better understand MCP (Model Context Protocol) Resources.**
+
+You can run, edit, and add new scenarios easily. The server supports scenario files written in YAML and can be extended with your own stories.
+
+> **Note:** On Cline, everything works out-of-the-box. On other environments like Claude Desktop and Cursor, please use `server_tool.py` to launch and manage the server properly.
 
 ### How to Use
 
@@ -60,7 +66,13 @@ project-root/
 ## 日本語
 
 ### 概要
-このリポジトリは、分岐型ノベルゲーム（ビジュアルノベル）サーバーです。英語・日本語両対応。YAML形式でシナリオを追加・編集できます。
+このリポジトリは、分岐型ノベルゲーム（ビジュアルノベル）サーバーです。英語・日本語両対応。
+
+**MCP（Model Context Protocol）のリソースを理解するためのリソースとして設計されています。**
+
+YAML形式でシナリオを追加・編集できます。
+
+> **注意:** Cline環境ではそのまま動作しますが、それ以外の環境（例えばClaude DesktopやCursor）では `server_tool.py` を使ってサーバーの起動・管理を行ってください。
 
 ### 使い方
 
@@ -76,7 +88,7 @@ uv sync
             "command": "uv",
             "args": [
                 "--directory",
-                "/Users/username/Documents/projects/mcp-novel-game-server", ## Replace with your project root
+                "/Users/username/Documents/projects/mcp-novel-game-server", ## ご自身のプロジェクトルートに変更してください
                 "run",
                 "src/server.py"
             ]
