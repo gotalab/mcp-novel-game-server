@@ -1,0 +1,11 @@
+id: dungeon
+body_md: |
+  ## 地下の封印室
+  苔むした石壁に鎖が走り、中央には巨大な鍵穴が口を開けている。
+choices:
+  - id: a
+    text: 鍵を差し込む
+    next: finale_good
+  - id: b
+    text: 怖じ気づき引き返す
+    next: finale_bad

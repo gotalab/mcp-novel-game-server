@@ -1,0 +1,13 @@
+id: haunted_village
+body_md: |
+  You arrive at a village shrouded in silence. The villagers, pale and ghostly, beg for your help to break the curse.
+choices:
+  - id: a
+    text: Help the villagers
+    next: ancient_ruins
+  - id: b
+    text: Ignore their pleas
+    next: finale_bad3
+  - id: c
+    text: Search for clues
+    next: memory_maze

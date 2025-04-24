@@ -1,0 +1,10 @@
+id: redemption
+body_md: |
+  あなたは贖罪の道を選ぶ。誠実な言葉と行動が新たな未来を切り開く。
+choices:
+  - id: a
+    text: 赦し合う
+    next: true_end
+  - id: b
+    text: 自らを犠牲にする
+    next: secret_end

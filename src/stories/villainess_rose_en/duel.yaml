@@ -1,0 +1,10 @@
+id: duel
+body_md: |
+  A dramatic duel unfolds between you and the heroine before the crowd.
+choices:
+  - id: a
+    text: Win the duel
+    next: redemption
+  - id: b
+    text: Lose the duel
+    next: downfall

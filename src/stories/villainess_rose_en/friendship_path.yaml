@@ -1,0 +1,13 @@
+id: friendship_path
+body_md: |
+  You approach the heroine with unexpected kindness. Will you help her, rival her, or reveal your secret?
+choices:
+  - id: a
+    text: Help the heroine
+    next: redemption
+  - id: b
+    text: Rivalry intensifies
+    next: duel
+  - id: c
+    text: Confess your secret
+    next: secret_garden

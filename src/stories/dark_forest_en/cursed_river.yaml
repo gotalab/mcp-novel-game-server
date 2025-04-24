@@ -1,0 +1,10 @@
+id: cursed_river
+body_md: |
+  A wide, black river blocks your path. The water is strangely alluring, but you sense a terrible danger.
+choices:
+  - id: a
+    text: Cross the river
+    next: haunted_village
+  - id: b
+    text: Drink the water
+    next: finale_bad2

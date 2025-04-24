@@ -1,0 +1,10 @@
+id: prince_path
+body_md: |
+  王子が現れ、思いがけない助けを差し伸べる。受け入れるか、断るか？
+choices:
+  - id: a
+    text: 助けを受け入れる
+    next: redemption
+  - id: b
+    text: 助けを断る
+    next: exile

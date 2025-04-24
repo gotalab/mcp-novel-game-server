@@ -1,0 +1,11 @@
+id: hallway
+body_md: |
+  ## 石造りの廊下
+  冷たい風が蝋燭の火を揺らし、足音だけが長く響く。
+choices:
+  - id: a
+    text: 中庭に通じる扉を開ける
+    next: courtyard
+  - id: b
+    text: 図書室と書かれた扉を開ける
+    next: library

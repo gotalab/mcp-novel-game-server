@@ -1,0 +1,13 @@
+id: confrontation
+body_md: |
+  あなたはヒロインに公然と対決を挑む。その選択が運命を大きく左右する。
+choices:
+  - id: a
+    text: ヒロインに濡れ衣を着せる
+    next: downfall
+  - id: b
+    text: 謝罪する
+    next: redemption
+  - id: c
+    text: 失敗して捕まる
+    next: exile

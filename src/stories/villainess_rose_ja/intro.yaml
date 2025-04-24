@@ -1,0 +1,14 @@
+id: intro
+body_md: |
+  ## 貴族の舞踏会
+  今宵は運命の舞踏会。悪役令嬢として名高いあなたは注目の的。策略を巡らせるか、友情を求めるか、それとも運命から逃げ出すか？
+choices:
+  - id: a
+    text: ヒロインを陥れる
+    next: confrontation
+  - id: b
+    text: ヒロインと友達になる
+    next: friendship_path
+  - id: c
+    text: 会場から逃げ出す
+    next: secret_garden

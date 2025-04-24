@@ -1,0 +1,10 @@
+id: prince_path
+body_md: |
+  The prince appears, offering his unexpected support. Will you accept his help or refuse?
+choices:
+  - id: a
+    text: Accept his help
+    next: redemption
+  - id: b
+    text: Refuse his help
+    next: exile

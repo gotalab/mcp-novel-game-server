@@ -1,0 +1,15 @@
+id: undercity
+body_md: |
+  ## 地下蒸気トンネル
+  *前シーン例: skybridge→undercity, tower_plaza→undercity*
+  
+  焼けるような蒸気が吹き出し、警報が赤と青の光で交互に明滅する。
+  クロエは設計図と照合し、配管の型番が「廃盤試作 Ver.0」であることに気付く――
+  つまり誰かが非公式パーツでシステムを改造した痕跡だ。
+choices:
+  - id: a
+    text: 応急処置で漏れを止め、核心部へ進む
+    next: cathedral
+  - id: b
+    text: さらに奥へ進み異常改造の証拠を探す
+    next: archives

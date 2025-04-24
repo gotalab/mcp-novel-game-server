@@ -1,0 +1,10 @@
+id: time_loop
+body_md: |
+  Time rewinds, granting you another chance to change your fate. Will you try again or give up?
+choices:
+  - id: a
+    text: Try again
+    next: intro
+  - id: b
+    text: Give up
+    next: bad_end

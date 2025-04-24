@@ -1,0 +1,10 @@
+id: duel
+body_md: |
+  あなたとヒロインの決闘が観衆の前で始まる。
+choices:
+  - id: a
+    text: 決闘に勝つ
+    next: redemption
+  - id: b
+    text: 決闘に負ける
+    next: downfall

@@ -1,0 +1,10 @@
+id: time_loop
+body_md: |
+  時間が巻き戻り、あなたは再び運命に挑戦できる。もう一度挑戦するか、諦めるか？
+choices:
+  - id: a
+    text: もう一度挑戦
+    next: intro
+  - id: b
+    text: 諦める
+    next: bad_end

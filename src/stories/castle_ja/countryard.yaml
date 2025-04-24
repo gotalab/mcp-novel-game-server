@@ -1,0 +1,11 @@
+id: courtyard
+body_md: |
+  ## 月下の中庭
+  朽ちた噴水の水面に月光が揺らめく。蔦に覆われた像が不気味な影を落とす。
+choices:
+  - id: a
+    text: 噴水を調べる
+    next: dungeon
+  - id: b
+    text: 図書室へ戻る
+    next: library

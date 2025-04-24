@@ -1,0 +1,10 @@
+id: downfall
+body_md: |
+  策略は裏目に出て、あなたへの非難が広がる。貴族社会はあなたに背を向ける。
+choices:
+  - id: a
+    text: 運命を受け入れる
+    next: bad_end
+  - id: b
+    text: やり直しを願う
+    next: time_loop

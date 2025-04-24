@@ -1,0 +1,10 @@
+id: downfall
+body_md: |
+  Your scheme backfires, and rumors spread like wildfire. The court turns against you.
+choices:
+  - id: a
+    text: Accept your fate
+    next: bad_end
+  - id: b
+    text: Wish for another chance
+    next: time_loop

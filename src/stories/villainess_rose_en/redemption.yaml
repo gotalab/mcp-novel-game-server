@@ -1,0 +1,10 @@
+id: redemption
+body_md: |
+  You choose the path of redemption. Sincere words and actions open new possibilities for forgiveness and a brighter future.
+choices:
+  - id: a
+    text: Forgive and be forgiven
+    next: true_end
+  - id: b
+    text: Sacrifice yourself
+    next: secret_end

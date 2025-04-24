@@ -1,0 +1,11 @@
+id: intro
+body_md: |
+  ## Night in the Forbidden Forest
+  As the moonlight barely pierces the thick mist, you find yourself standing at the edge of the ancient forest. Legends speak of a cursed artifact hidden deep within, guarded by shadows and forgotten souls.
+choices:
+  - id: a
+    text: Enter the forest
+    next: path
+  - id: b
+    text: Turn back to the village
+    next: finale_bad

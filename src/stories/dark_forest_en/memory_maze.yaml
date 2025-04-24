@@ -1,0 +1,13 @@
+id: memory_maze
+body_md: |
+  The spirit leads you into a labyrinth of memories. You must solve a riddle to proceed, but the maze threatens to trap your mind forever.
+choices:
+  - id: a
+    text: Solve the riddle
+    next: ancient_ruins
+  - id: b
+    text: Fail and lose yourself
+    next: finale_loop
+  - id: c
+    text: Recall your past
+    next: intro

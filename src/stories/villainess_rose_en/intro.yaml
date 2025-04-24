@@ -1,0 +1,14 @@
+id: intro
+body_md: |
+  ## The Noble Ball
+  Tonight is the grand ball where destinies are decided. You, the infamous villainess, stand at the center of attention. Will you scheme, seek friendship, or run from your fate?
+choices:
+  - id: a
+    text: Scheme against the heroine
+    next: confrontation
+  - id: b
+    text: Try to befriend the heroine
+    next: friendship_path
+  - id: c
+    text: Escape the party
+    next: secret_garden

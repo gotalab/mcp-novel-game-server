@@ -1,0 +1,14 @@
+id: archives
+body_md: |
+  ## 記録保管庫
+  *前シーン: guildhall / skybridge / undercity から到達*
+  
+  厳重に封印された書庫。クロエは師匠の筆跡を追い、初期設計図と「暴走共振」の計算書を見つけた。
+  計算書は *「共振臨界まで残り 30 分」* と赤字で示す。対応策はただ一行――「コアを完全停止し歯車位相をリセット」。
+choices:
+  - id: a
+    text: 初期設計図を持ち出し、聖堂の制御室へ急ぐ
+    next: cathedral
+  - id: b
+    text: 禁断の『自己再起動改造案』で一発逆転を狙う
+    next: showdown

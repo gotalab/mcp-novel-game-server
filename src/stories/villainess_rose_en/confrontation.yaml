@@ -1,0 +1,13 @@
+id: confrontation
+body_md: |
+  You confront the heroine in front of the guests. Your words and actions here will determine your fate.
+choices:
+  - id: a
+    text: Frame the heroine
+    next: downfall
+  - id: b
+    text: Apologize
+    next: redemption
+  - id: c
+    text: Get caught
+    next: exile

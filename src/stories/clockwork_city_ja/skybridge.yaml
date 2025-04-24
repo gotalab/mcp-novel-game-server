@@ -1,0 +1,15 @@
+id: skybridge
+body_md: |
+  ## 上層スカイブリッジ
+  *前シーン例: workshop→skybridge, guildhall→skybridge*
+  
+  ガラスと鋼で構成された空中回廊からは都市全景が望める。
+  動力塔頂部の排気煙は先ほどより濃く、赤い閃光が周期的に走っていた。
+  連絡橋の制御室では自律計算機が異常ログを吐き出し続けている――「回転数: 142% 設計上限」。
+choices:
+  - id: a
+    text: 閃光の地点（上層排気弁）へ急行
+    next: undercity
+  - id: b
+    text: 制御室のログを解析し原因を突き止める
+    next: archives

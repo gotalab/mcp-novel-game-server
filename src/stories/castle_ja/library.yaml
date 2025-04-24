@@ -1,0 +1,11 @@
+id: library
+body_md: |
+  ## 塵埃の図書室
+  革装丁の本が高い書架に並び、梯子が軋む音を立てる。
+choices:
+  - id: a
+    text: 古い地図を探す
+    next: courtyard
+  - id: b
+    text: 地下への隠し扉を探す
+    next: dungeon

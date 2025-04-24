@@ -1,0 +1,13 @@
+id: ancient_ruins
+body_md: |
+  Deep within the forest, you find ancient ruins emanating a dark power. The artifact lies before you, pulsating with energy.
+choices:
+  - id: a
+    text: Break the curse
+    next: finale_good
+  - id: b
+    text: Take the artifact
+    next: finale_bad4
+  - id: c
+    text: Return to the forest
+    next: mist_path

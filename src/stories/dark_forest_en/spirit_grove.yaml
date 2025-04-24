@@ -1,0 +1,10 @@
+id: spirit_grove
+body_md: |
+  You find yourself in a grove filled with ethereal lights. A spirit appears and offers you knowledge, but at a price.
+choices:
+  - id: a
+    text: Accept the spirit's offer
+    next: memory_maze
+  - id: b
+    text: Refuse and run
+    next: cursed_river

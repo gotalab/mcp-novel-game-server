@@ -1,0 +1,12 @@
+id: intro
+body_md: |
+  ## 書斎の夜
+  嵐が窓を打ちつける中、君は古ぼけた手記を読み終えた。
+  そこには「城の奥深くに封じられた鍵」の伝説が記されている──。
+choices:
+  - id: a
+    text: 城へ向かう
+    next: hallway
+  - id: b
+    text: 調査を明日に延ばす
+    next: finale_bad

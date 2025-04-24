@@ -1,0 +1,13 @@
+id: mist_path
+body_md: |
+  The mist thickens as you step into the forest. Shadows dance between the trees, and a faint whisper calls your name from deeper within.
+choices:
+  - id: a
+    text: Follow the whisper
+    next: spirit_grove
+  - id: b
+    text: Ignore and press on
+    next: cursed_river
+  - id: c
+    text: Turn back
+    next: intro

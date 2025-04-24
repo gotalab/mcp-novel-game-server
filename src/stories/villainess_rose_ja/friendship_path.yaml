@@ -1,0 +1,13 @@
+id: friendship_path
+body_md: |
+  あなたはヒロインに優しく接する。助けるか、ライバルとして挑むか、それとも秘密を打ち明けるか？
+choices:
+  - id: a
+    text: ヒロインを助ける
+    next: redemption
+  - id: b
+    text: ライバル関係が激化
+    next: duel
+  - id: c
+    text: 秘密を打ち明ける
+    next: secret_garden
