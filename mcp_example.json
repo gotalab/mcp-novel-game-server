@@ -9,11 +9,11 @@
                 "src/server.py"
             ]
         },
-        "novel-game-server-tool": {
+        "novel-game-server-claude-desktop": {
             "command": "uv",
             "args": [
                 "--directory",
-                "/Users/username/Documents/projects/mcp-novel-game-server",
+                "/Users/gota/Documents/projects/mcp-novel-game-server",
                 "run",
                 "src/server_tool.py"
             ]

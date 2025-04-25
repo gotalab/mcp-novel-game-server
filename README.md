@@ -1,5 +1,7 @@
 # MCP Novel Game Server
 
+![alt text](static/images/image.png)
+
 ## English
 
 ### Overview

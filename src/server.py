@@ -226,8 +226,9 @@ def load_scene_image(player_id: str, scene_id: str, max_width: int = 1024, max_h
         ext = (img.format or "PNG").upper()
         width, height = img.size
         cur_width, cur_height = min(width, max_width), min(height, max_height)
-        min_size = 100
+        min_size = 50  # さらに小さく
         quality = 85 if ext in ("JPEG", "JPG") else None
+        min_quality = 40
 
         while True:
             img_copy = img.copy()
@@ -243,9 +244,15 @@ def load_scene_image(player_id: str, scene_id: str, max_width: int = 1024, max_h
             # さらに縮小
             cur_width = int(cur_width * 0.8)
             cur_height = int(cur_height * 0.8)
+            # JPEGの場合はqualityも下げる
+            if ext in ("JPEG", "JPG") and quality > min_quality:
+                quality = max(min_quality, int(quality * 0.9))
         buf.seek(0)
         if size > 1048576:
-            raise ValueError("Image is too large even after repeated resizing/compression.")
+            raise ValueError(
+                f"Image is too large even after repeated resizing/compression. "
+                f"Original: {width}x{height}, Final: {cur_width}x{cur_height}, Size: {size} bytes, Quality: {quality}"
+            )
         return Image(data=buf.read())
 
 
