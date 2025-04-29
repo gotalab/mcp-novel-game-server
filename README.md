@@ -2,6 +2,8 @@
 
 ![alt text](static/images/image.png)
 
+[ビジュアルノベルゲームのMCPサーバーの作り方](https://note.com/gotalab/n/n34b4fcc46d22)
+
 ## English
 
 ### Overview
